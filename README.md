@@ -1,17 +1,59 @@
-# cahyo_dart
+Latihan 006 - Aplikasi Mobile 📱
 
-A new Flutter project.
+Repositori ini berisi tugas praktikum Pertemuan 4 - Aplikasi Mobile mengenai Struktur Dasar UI, Layouting, dan Komposisi Widget menggunakan Flutter.
 
-## Getting Started
+🎯 Tujuan Pembelajaran
 
-This project is a starting point for a Flutter application.
+Memahami cara kerja layouting pada Flutter (Konsep: Constraints go down, Sizes go up, Parent sets position).
 
-A few resources to get you started if this is your first Flutter project:
+Mengimplementasikan Scaffold, Column, Row, ListView, dan widget dasar lainnya.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+Melakukan Refactoring UI dengan memisahkan komponen kompleks menjadi Custom Widget (Extract Widget).
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Menganalisis dan memperbaiki bug layout seperti overflow pada daftar gulir.
+
+🛠️ Fitur yang Diselesaikan
+
+Kerangka Dasar & Profil: Pembuatan UI halaman profil utama menggunakan CircleAvatar dan Text.
+
+Statistik Pengguna: Penggunaan Row untuk menampilkan data statistik (Proyek, Followers, Following).
+
+Daftar Pengalaman Kerja: Implementasi ListView.builder yang dibungkus dengan Expanded untuk mengatasi layout overflow.
+
+Refactoring (Extract Widget):
+
+AvatarProfil
+
+InfoProfil
+
+WidgetStatistik
+
+ItemStatistik
+
+KartuPengalaman
+
+🚀 Cara Menjalankan Aplikasi
+
+Pastikan Flutter SDK sudah terpasang.
+
+Clone repositori ini:
+
+git clone https://github.com/DanuTirta26/Latihan-006-Aplikasi-Mobile.git
+
+
+Masuk ke direktori proyek:
+
+cd Latihan-006-Aplikasi-Mobile
+
+
+Unduh semua dependensi:
+
+flutter pub get
+
+
+Jalankan aplikasi di emulator atau perangkat fisik:
+
+flutter run
+
+
+Dibuat untuk memenuhi tugas mata kuliah Aplikasi Mobile - Teknik Informatika.
