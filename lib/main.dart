@@ -13,7 +13,7 @@ class AplikasiProfilDanu extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tugas Aplikasi Profil',
       theme: ThemeData(
-        // Punya lu biarin biru, punya Danu gw set Teal biar beda
+        // test push
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
       ),
       home: HalamanProfilUtama(),
