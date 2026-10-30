@@ -13,26 +13,71 @@ class AplikasiProfilDanu extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tugas Aplikasi Profil',
       theme: ThemeData(
-        // test push
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
       ),
-      home: HalamanProfilUtama(),
+      home: const HalamanProfilUtama(),
     );
   }
 }
 
-// REFACTOR: Memisahkan kerangka halaman dari MainApp
-class HalamanProfilUtama extends StatelessWidget {
-  HalamanProfilUtama({super.key});
+// REFACTOR: Ubah ke StatefulWidget sesuai modul Hari 4
+class HalamanProfilUtama extends StatefulWidget {
+  const HalamanProfilUtama({super.key});
 
-  final String namaDosen = 'I Ketut Gunawan, S.Kom, M.T.I.';
+  @override
+  State<HalamanProfilUtama> createState() => _HalamanProfilUtamaState();
+}
+
+class _HalamanProfilUtamaState extends State<HalamanProfilUtama> {
+  // Variabel namaDosen dibuat tidak final agar bisa diubah melalui setState
+  String namaDosen = 'I Ketut Gunawan, S.Kom, M.T.I.';
   final String profesi = 'Senior Backend Engineer & Dosen';
   final List<String> riwayatKerja = [
     'Senior Backend Engineer - EDC Bank DKI',
     'Backend & System Architect - Secure Payment EDC',
     'Lead Developer - Aplikasi Sekurindo',
-    'Backend Engineer - Pengembangan Sistem E-money', // Koma diperbaiki
+    'Backend Engineer - Pengembangan Sistem E-money',
   ];
+
+  // FUNGSI BARU: Memunculkan form dialog edit
+  void _tampilkanDialogEdit() {
+    TextEditingController namaController = TextEditingController(text: namaDosen);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Edit Nama Profil'),
+          content: TextField(
+            controller: namaController,
+            decoration: const InputDecoration(
+              labelText: 'Nama Baru',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Batal'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Update state saat tombol simpan ditekan
+                setState(() {
+                  namaDosen = namaController.text;
+                });
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Nama berhasil diperbarui!')),
+                );
+              },
+              child: const Text('Simpan'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,23 +92,21 @@ class HalamanProfilUtama extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const AvatarProfil(), // Extract Widget 1
+            const AvatarProfil(),
             const SizedBox(height: 16),
-            InfoProfil(nama: namaDosen, role: profesi), // Extract Widget 2
+            // InfoProfil sekarang akan ter-update otomatis kalau namaDosen berubah
+            InfoProfil(nama: namaDosen, role: profesi),
             const SizedBox(height: 24),
             
             ElevatedButton.icon(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Fitur edit belum aktif.')),
-                );
-              },
+              // Panggil fungsi dialog di sini
+              onPressed: _tampilkanDialogEdit,
               icon: const Icon(Icons.edit),
               label: const Text('Edit Profil'),
             ),
             const SizedBox(height: 24),
             
-            const WidgetStatistik(), // Extract Widget 3
+            const WidgetStatistik(),
             const SizedBox(height: 24),
             
             const Align(
@@ -75,12 +118,11 @@ class HalamanProfilUtama extends StatelessWidget {
             ),
             const Divider(),
             
-            // BUG FIXED: Dibungkus Expanded biar tidak error layout
             Expanded(
               child: ListView.builder(
                 itemCount: riwayatKerja.length,
                 itemBuilder: (context, index) {
-                  return KartuPengalaman(pengalaman: riwayatKerja[index]); // Extract Widget 4
+                  return KartuPengalaman(pengalaman: riwayatKerja[index]);
                 }
               ),
             ),
@@ -92,7 +134,7 @@ class HalamanProfilUtama extends StatelessWidget {
 }
 
 // ==========================================
-// REUSABLE COMPONENTS (EXTRACT WIDGETS)
+// REUSABLE COMPONENTS (EXTRACT WIDGETS) - SAMA PERSIS SEPERTI SEBELUMNYA
 // ==========================================
 
 class AvatarProfil extends StatelessWidget {
@@ -146,10 +188,10 @@ class WidgetStatistik extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ItemStatistik(count: '15', label: 'Proyek'),
-          SizedBox(width: 24), // BUG FIXED: Diganti width
+          SizedBox(width: 24),
           ItemStatistik(count: '1.2K', label: 'Followers'),
-          SizedBox(width: 24), // BUG FIXED: Diganti width
-          ItemStatistik(count: '42', label: 'Following'), // BUG FIXED: Int to String
+          SizedBox(width: 24),
+          ItemStatistik(count: '42', label: 'Following'),
         ],
       ),
     );
