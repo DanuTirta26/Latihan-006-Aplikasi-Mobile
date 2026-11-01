@@ -39,9 +39,47 @@ class HalamanProfilUtama extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const AvatarProfil(), // UI sudah di-extract
+            const AvatarProfil(), 
             const SizedBox(height: 16),
-            InfoProfil(nama: namaDosen, role: profesi), // UI sudah di-extract
+            InfoProfil(nama: namaDosen, role: profesi), 
+            const SizedBox(height: 24),
+            
+            // HARI 2 PAGI: Widget Statistik monolitik
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.teal[50],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      Text('15', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal)),
+                      SizedBox(height: 4),
+                      Text('Proyek', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                    ],
+                  ),
+                  SizedBox(width: 24), // Bug modul bawaan (height) udah dibenerin jadi width
+                  Column(
+                    children: [
+                      Text('1.2K', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal)),
+                      SizedBox(height: 4),
+                      Text('Followers', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                    ],
+                  ),
+                  SizedBox(width: 24),
+                  Column(
+                    children: [
+                      Text('42', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal)),
+                      SizedBox(height: 4),
+                      Text('Following', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -70,17 +108,9 @@ class InfoProfil extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          nama,
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
-        ),
+        Text(nama, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
         const SizedBox(height: 8),
-        Text(
-          role,
-          style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-          textAlign: TextAlign.center,
-        ),
+        Text(role, style: TextStyle(fontSize: 16, color: Colors.grey[700]), textAlign: TextAlign.center),
       ],
     );
   }
