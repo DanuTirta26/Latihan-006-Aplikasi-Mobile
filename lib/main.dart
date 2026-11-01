@@ -44,42 +44,7 @@ class HalamanProfilUtama extends StatelessWidget {
             InfoProfil(nama: namaDosen, role: profesi), 
             const SizedBox(height: 24),
             
-            // HARI 2 PAGI: Widget Statistik monolitik
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                color: Colors.teal[50],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      Text('15', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal)),
-                      SizedBox(height: 4),
-                      Text('Proyek', style: TextStyle(fontSize: 14, color: Colors.grey)),
-                    ],
-                  ),
-                  SizedBox(width: 24), // Bug modul bawaan (height) udah dibenerin jadi width
-                  Column(
-                    children: [
-                      Text('1.2K', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal)),
-                      SizedBox(height: 4),
-                      Text('Followers', style: TextStyle(fontSize: 14, color: Colors.grey)),
-                    ],
-                  ),
-                  SizedBox(width: 24),
-                  Column(
-                    children: [
-                      Text('42', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal)),
-                      SizedBox(height: 4),
-                      Text('Following', style: TextStyle(fontSize: 14, color: Colors.grey)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            const WidgetStatistik(), // HARI 2 SIANG: Udah dipanggil jadi Custom Widget
           ],
         ),
       ),
@@ -91,11 +56,7 @@ class AvatarProfil extends StatelessWidget {
   const AvatarProfil({super.key});
   @override
   Widget build(BuildContext context) {
-    return const CircleAvatar(
-      radius: 50,
-      backgroundColor: Colors.grey,
-      child: Icon(Icons.person, size: 50, color: Colors.white),
-    );
+    return const CircleAvatar(radius: 50, backgroundColor: Colors.grey, child: Icon(Icons.person, size: 50, color: Colors.white));
   }
 }
 
@@ -111,6 +72,51 @@ class InfoProfil extends StatelessWidget {
         Text(nama, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
         const SizedBox(height: 8),
         Text(role, style: TextStyle(fontSize: 16, color: Colors.grey[700]), textAlign: TextAlign.center),
+      ],
+    );
+  }
+}
+
+// ==========================================
+// REUSABLE COMPONENTS BARU (HARI 2)
+// ==========================================
+
+class WidgetStatistik extends StatelessWidget {
+  const WidgetStatistik({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.teal[50],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ItemStatistik(count: '15', label: 'Proyek'),
+          SizedBox(width: 24),
+          ItemStatistik(count: '1.2K', label: 'Followers'),
+          SizedBox(width: 24),
+          ItemStatistik(count: '42', label: 'Following'), 
+        ],
+      ),
+    );
+  }
+}
+
+class ItemStatistik extends StatelessWidget {
+  final String count;
+  final String label;
+  const ItemStatistik({super.key, required this.count, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(count, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal)),
+        const SizedBox(height: 4),
+        Text(label, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
       ],
     );
   }
