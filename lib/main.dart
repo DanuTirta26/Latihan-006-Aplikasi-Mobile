@@ -25,6 +25,14 @@ class HalamanProfilUtama extends StatelessWidget {
 
   final String namaDosen = 'I Ketut Gunawan, S.Kom, M.T.I.';
   final String profesi = 'Senior Backend Engineer & Dosen';
+  
+  // HARI 3 PAGI: Tambah array dummy data
+  final List<String> riwayatKerja = const [
+    'Senior Backend Engineer - EDC Bank DKI',
+    'Backend & System Architect - Secure Payment EDC',
+    'Lead Developer - Aplikasi Sekurindo',
+    'Backend Engineer - Pengembangan Sistem E-money',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +51,35 @@ class HalamanProfilUtama extends StatelessWidget {
             const SizedBox(height: 16),
             InfoProfil(nama: namaDosen, role: profesi), 
             const SizedBox(height: 24),
+            const WidgetStatistik(),
+            const SizedBox(height: 24),
             
-            const WidgetStatistik(), // HARI 2 SIANG: Udah dipanggil jadi Custom Widget
+            // HARI 3 PAGI: Judul list
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Pengalaman Kerja',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const Divider(),
+            
+            // HARI 3 PAGI: ListView dibungkus Expanded biar ga error
+            Expanded(
+              child: ListView.builder(
+                itemCount: riwayatKerja.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 2,
+                    margin: const EdgeInsets.symmetric(vertical: 6),
+                    child: ListTile(
+                      leading: const Icon(Icons.work, color: Colors.teal),
+                      title: Text(riwayatKerja[index]),
+                    ),
+                  );
+                }
+              ),
+            ),
           ],
         ),
       ),
@@ -52,6 +87,7 @@ class HalamanProfilUtama extends StatelessWidget {
   }
 }
 
+// === KOMPONEN LAMA (HARI 1 & 2) ===
 class AvatarProfil extends StatelessWidget {
   const AvatarProfil({super.key});
   @override
@@ -77,20 +113,13 @@ class InfoProfil extends StatelessWidget {
   }
 }
 
-// ==========================================
-// REUSABLE COMPONENTS BARU (HARI 2)
-// ==========================================
-
 class WidgetStatistik extends StatelessWidget {
   const WidgetStatistik({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.teal[50],
-        borderRadius: BorderRadius.circular(12),
-      ),
+      decoration: BoxDecoration(color: Colors.teal[50], borderRadius: BorderRadius.circular(12)),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
