@@ -26,7 +26,6 @@ class HalamanProfilUtama extends StatelessWidget {
   final String namaDosen = 'I Ketut Gunawan, S.Kom, M.T.I.';
   final String profesi = 'Senior Backend Engineer & Dosen';
   
-  // HARI 3 PAGI: Tambah array dummy data
   final List<String> riwayatKerja = const [
     'Senior Backend Engineer - EDC Bank DKI',
     'Backend & System Architect - Secure Payment EDC',
@@ -54,7 +53,6 @@ class HalamanProfilUtama extends StatelessWidget {
             const WidgetStatistik(),
             const SizedBox(height: 24),
             
-            // HARI 3 PAGI: Judul list
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -64,19 +62,12 @@ class HalamanProfilUtama extends StatelessWidget {
             ),
             const Divider(),
             
-            // HARI 3 PAGI: ListView dibungkus Expanded biar ga error
+            // HARI 3 SIANG: Memanggil Custom Widget KartuPengalaman
             Expanded(
               child: ListView.builder(
                 itemCount: riwayatKerja.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    elevation: 2,
-                    margin: const EdgeInsets.symmetric(vertical: 6),
-                    child: ListTile(
-                      leading: const Icon(Icons.work, color: Colors.teal),
-                      title: Text(riwayatKerja[index]),
-                    ),
-                  );
+                  return KartuPengalaman(pengalaman: riwayatKerja[index]); 
                 }
               ),
             ),
@@ -87,12 +78,19 @@ class HalamanProfilUtama extends StatelessWidget {
   }
 }
 
-// === KOMPONEN LAMA (HARI 1 & 2) ===
+// ==========================================
+// REUSABLE COMPONENTS (EXTRACT WIDGETS)
+// ==========================================
+
 class AvatarProfil extends StatelessWidget {
   const AvatarProfil({super.key});
   @override
   Widget build(BuildContext context) {
-    return const CircleAvatar(radius: 50, backgroundColor: Colors.grey, child: Icon(Icons.person, size: 50, color: Colors.white));
+    return const CircleAvatar(
+      radius: 50, 
+      backgroundColor: Colors.grey, 
+      child: Icon(Icons.person, size: 50, color: Colors.white)
+    );
   }
 }
 
@@ -147,6 +145,24 @@ class ItemStatistik extends StatelessWidget {
         const SizedBox(height: 4),
         Text(label, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
       ],
+    );
+  }
+}
+
+// HARI 3 SIANG: Komponen Card yang sudah diekstrak
+class KartuPengalaman extends StatelessWidget {
+  final String pengalaman;
+  const KartuPengalaman({super.key, required this.pengalaman});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      child: ListTile(
+        leading: const Icon(Icons.work, color: Colors.teal),
+        title: Text(pengalaman),
+      ),
     );
   }
 }
